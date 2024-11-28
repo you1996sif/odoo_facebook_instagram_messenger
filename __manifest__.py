@@ -36,7 +36,7 @@
     "company": "TechUltra Solutions Private Limited",
     "maintainer": "TechUltra Solutions",
     "license": "OPL-1",
-    "depends": ["base", "mail","sale_management","helpdesk",'sale', 'mail', 'discuss'],
+    "depends": ["base", "mail","sale_management","helpdesk",'sale', 'mail'],
     "data": [
         "security/ir.model.access.csv",
         "wizard/messenger_compose_message_view.xml",
