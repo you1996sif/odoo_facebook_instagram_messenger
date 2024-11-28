@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Helpdesk Ticket Form View to add Instagram integration -->
+    <record id="helpdesk_ticket_view_form_inherit_instagram" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.inherit.instagram</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Add Instagram Conversation Button -->
+            <div name="button_box" position="inside">
+                <button name="action_view_instagram_conversation"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-instagram"
+                        attrs="{'invisible': [('instagram_history_id', '=', False)]}">
+                    <field name="instagram_history_id" string="Instagram Conv." widget="statinfo"/>
+                </button>
+            </div>
+            
+            <!-- Add Instagram Conversation Info -->
+            <notebook position="inside">
+                <page string="Instagram Conversation" attrs="{'invisible': [('instagram_history_id', '=', False)]}">
+                    <group>
+                        <field name="instagram_history_id"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <!-- Add Instagram filter to Helpdesk Ticket search view -->
+    <record id="helpdesk_ticket_view_search_inherit_instagram" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.search.inherit.instagram</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_search"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="instagram_history_id"/>
+                <filter string="With Instagram Conversation" 
+                        name="has_instagram" 
+                        domain="[('instagram_history_id', '!=', False)]"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Add Instagram info to Helpdesk Ticket tree view -->
+    <record id="helpdesk_ticket_view_tree_inherit_instagram" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.tree.inherit.instagram</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="instagram_history_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -6,6 +6,16 @@
             <form string="Instagram History">
                 <header>
                     <field name="type" widget="statusbar" />
+                    <button name="action_open_create_sale_order_wizard" string="Create Sale Order" type="object" class="btn-primary"/>
+                        <button name="action_create_ticket" 
+                                string="Create Ticket" 
+                                type="object" 
+                                class="btn-primary"/>
+                        <button name="action_view_tickets"
+                                type="object"
+                                class="btn-secondary"
+                                icon="fa-ticket"
+                                string="View Tickets"/>
                 </header>
                 <sheet>
                     <group>
@@ -23,6 +33,68 @@
                         <field name="fail_reason" />
                         <field name="active" invisible="1" />
                     </group>
+                    <group>
+                        <field name="street" string="Street"/>
+                        <field name="street2" string="Street 2"/>
+                        <field name="state_id" string="State"/>
+                        <field name="district_id" string="District"/>
+                        <field name="city" string="City"/>
+                        <field name="zip" string="ZIP"/>
+                        <field name="country_id" string="Country"/>
+                    </group>
+                    <group>
+                        <field name="phone" string="Phone"/>
+                        <field name="mobile" string="Mobile"/>
+                        <field name="email" string="Email"/>
+                        <field name="website" string="Website"/>
+                        <field name="lang" string="Language"/>
+                        <field name="category_id" string="Tags" widget="many2many_tags"/>
+                        <!-- <field name="birth_date" string="Birth Date"/> -->
+                    </group>
+                    <group>
+                        <field name="note" string="ملاحظات"/>
+                        
+                    </group>
+                    <notebook>
+                       
+                        <page string="Sale Orders">
+                            <button name="action_add_sale_order" string="Add Sale Order" type="object" class="btn-secondary"/>
+                            <field name="sale_order_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="date_order"/>
+                                    <field name="state"/>
+                                    <field name="amount_total"/>
+                                    <field name="return_deadline"/>
+                                    
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Order Lines">
+                            <button name="action_add_order_line" string="Add Order Line" type="object" class="btn-secondary"/>
+                            <field name="order_line_ids" context="{'default_order_id': active_id}">
+                                <tree editable="bottom">
+                                    <field name="order_id"/>
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="product_uom_qty"/>
+                                    <field name="price_unit"/>
+                                    <field name="price_subtotal" sum="Total"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Helpdesk Tickets">
+                            <field name="helpdesk_ticket_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="create_date"/>
+                                    <field name="user_id"/>
+                                    <field name="stage_id"/>
+                                    <field name="priority" widget="priority"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

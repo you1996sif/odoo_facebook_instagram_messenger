@@ -1,5 +1,5 @@
 {
-    "name": "Odoo Facebook Messenger Integration | Odoo Instagram Messaging Integration | Bidirectional with Facebook/Instagram Graph API by Meta",
+    "name": "newOdoo Facebook Messenger Integration | Odoo Instagram Messaging Integration | Bidirectional with Facebook/Instagram Graph API by Meta",
     "version": "17.0.0.5",
     "summary": """Odoo Facebook Messenger Integration and Odoo Instagram Messaging Integration (Bidirectional) with Facebook/Instagram Graph API by Meta
         Facebook
@@ -41,6 +41,7 @@
         "security/ir.model.access.csv",
         "wizard/messenger_compose_message_view.xml",
         "wizard/instagram_compose_message_view.xml",
+        'wizards/create_sale_order_wizard_views.xml',
         "views/mail_channel.xml",
         "views/messenger_provider_base.xml",
         "views/messenger_history_views.xml",
@@ -51,6 +52,9 @@
         "views/messenger_template_views.xml",
         "views/template_buttons_views.xml",
         "views/template_components_views.xml",
+        "views/template_components_views.xml",
+        "views/template_components_views.xml",
+        'views/helpdesk_ticket_views.xml',
     ],
     "assets": {
         "web.assets_backend": [
