@@ -46,6 +46,7 @@
         <menuitem id="menu_discuss_sales"
         name="Sales in Discuss"
         action="action_discuss_sales"
-        parent="mail.menu_root_discuss"/>
+        parent="mail.menu_root_discuss"
+         sequence="25"/>
         <!-- mail.menu_root_discuss -->
 </odoo>
