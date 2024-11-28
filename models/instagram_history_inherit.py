@@ -4,7 +4,7 @@ class InstagramHistoryInherit(models.Model):
     _inherit = 'instagram.history'
     
     
-    partner_id = fields.Many2one('res.partner', string='حساب العميل', required=True)
+    # partner_id = fields.Many2one('res.partner', string='حساب العميل', required=True)
     # facebook_id = fields.Char(related='partner_id.facebook_id', string='ID', store=True)
     client_name = fields.Char(string='اسم العميل ')
     note = fields.Char( string='ملاحظات')
@@ -13,23 +13,23 @@ class InstagramHistoryInherit(models.Model):
         ('active', 'Active'),
         ('archived', 'Archived')
     ], default='active', string='Status')
-    sale_order_ids = fields.One2many('sale.order', 'partner_id', string='Sale Orders', related='partner_id.sale_order_ids')
+    sale_order_ids = fields.One2many('sale.order', 'author_id', string='Sale Orders', related='author_id.sale_order_ids')
     order_line_ids = fields.One2many('sale.order.line', compute='_compute_order_lines')
     
     
-    street = fields.Char(related='partner_id.street', string='Street', readonly=False, required=True)
-    street2 = fields.Char(related='partner_id.street2', string='Street 2', readonly=False)
-    state_id = fields.Many2one(related='partner_id.state_id', string='State', readonly=False, required=True)
-    city = fields.Char(related='partner_id.city', string='City', readonly=False, required=True)
-    zip = fields.Char(related='partner_id.zip', string='ZIP', readonly=False)
-    country_id = fields.Many2one(related='partner_id.country_id', string='Country', readonly=False, required=True)
-    phone = fields.Char(related='partner_id.phone', string='Phone', readonly=False, required=True)
-    mobile = fields.Char(related='partner_id.mobile', string='Mobile')
-    email = fields.Char(related='partner_id.email', string='Email', readonly=False)
-    website = fields.Char(related='partner_id.website', string='Website', readonly=False)
-    lang = fields.Selection(related='partner_id.lang', string='Language', readonly=False)
-    category_id = fields.Many2many(related='partner_id.category_id', string='Tags', readonly=False)
-    district_id = fields.Many2one(related='partner_id.district_id', string='District', readonly=False, required=True)
+    street = fields.Char(related='author_id.street', string='Street', readonly=False, required=True)
+    street2 = fields.Char(related='author_id.street2', string='Street 2', readonly=False)
+    state_id = fields.Many2one(related='author_id.state_id', string='State', readonly=False, required=True)
+    city = fields.Char(related='author_id.city', string='City', readonly=False, required=True)
+    zip = fields.Char(related='author_id.zip', string='ZIP', readonly=False)
+    country_id = fields.Many2one(related='author_id.country_id', string='Country', readonly=False, required=True)
+    phone = fields.Char(related='author_id.phone', string='Phone', readonly=False, required=True)
+    mobile = fields.Char(related='author_id.mobile', string='Mobile')
+    email = fields.Char(related='author_id.email', string='Email', readonly=False)
+    website = fields.Char(related='author_id.website', string='Website', readonly=False)
+    lang = fields.Selection(related='author_id.lang', string='Language', readonly=False)
+    category_id = fields.Many2many(related='author_id.category_id', string='Tags', readonly=False)
+    district_id = fields.Many2one(related='author_id.district_id', string='District', readonly=False, required=True)
     
     # helpdesk_ticket_ids = fields.One2many('helpdesk.ticket', 'instagram_history_id', string='Helpdesk Tickets')
     # ticket_count = fields.Integer(compute='_compute_ticket_count', string='Ticket Count')
@@ -45,7 +45,7 @@ class InstagramHistoryInherit(models.Model):
             'res_model': 'create.sale.order.wizard',
             'view_mode': 'form',
             'target': 'new',
-            'context': {'default_partner_id': self.partner_id.id},
+            'context': {'default_partner_id': self.author_id.id},
         }
     @api.depends('sale_order_ids.order_line')
     def _compute_order_lines(self):
@@ -62,7 +62,7 @@ class InstagramHistoryInherit(models.Model):
             'res_model': 'sale.order',
             'view_mode': 'form',
             'context': {
-                'default_partner_id': self.partner_id.id,
+                'default_partner_id': self.author_id.id,
                 'default_origin': f'Facebook Conversation: {self.id}',
             },
             'target': 'new',
@@ -91,7 +91,7 @@ class InstagramHistoryInherit(models.Model):
         }
         
     def name_get(self):
-        return [(rec.id, f"{rec.partner_id.name} - Facebook Chat") for rec in self]
+        return [(rec.id, f"{rec.author_id.name} - Facebook Chat") for rec in self]
     
     def action_archive(self):
         self.write({'conversation_status': 'archived'})

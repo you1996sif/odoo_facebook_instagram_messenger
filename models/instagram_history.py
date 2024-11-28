@@ -84,7 +84,7 @@ class InstagramHistory(models.Model):
     _description = "Instagram Message History"
 
     provider_id = fields.Many2one("messenger.provider", "Provider", readonly=True)
-    author_id = fields.Many2one("res.partner", "Author", readonly=True)
+    author_id = fields.Many2one("res.partner", "حساب العميل", readonly=True)
     partner_id = fields.Many2one("res.partner", "Recipient", readonly=True)
     account_id = fields.Char("Instagram ID")
     message = fields.Char("Message", readonly=True)
