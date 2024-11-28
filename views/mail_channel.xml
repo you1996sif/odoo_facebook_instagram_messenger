@@ -11,38 +11,42 @@
                     <field name="instagram_channel" invisible="1"/>
                     <field name="facebook_channel" invisible="1"/>
                 </field>
-            
+           
             </field>
         </record>
+        
         <record id="sale_order_discuss_inherit" model="ir.ui.view">
-        <field name="name">sale.order.discuss.inherit</field>
-        <field name="model">discuss.channel</field>
-        <field name="inherit_id" ref="mail.discuss_channel_view_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//div[hasclass('o_notebook')]" position="inside">
-                <page string="Sale Orders" name="sale_orders" 
-                      attrs="{'invisible': [('sale_order_count', '=', 0)]}">
-                    <button 
-                        name="action_view_sale_orders"
-                        type="object"
-                        class="oe_stat_button"
-                        icon="fa-shopping-cart"
-                        invisible="sale_order_count == 0">
-                        <field name="sale_order_count" string="Sale Orders" widget="statinfo"/>
-                    </button>
-                    <field name="sale_order_ids" readonly="1">
-                        <tree string="Sale Orders">
-                            <field name="name"/>
-                            <field name="partner_id"/>
-                            <field name="date_order"/>
-                            <field name="amount_total" sum="Total"/>
-                            <field name="state"/>
-                        </tree>
-                    </field>
-                </page>
-            </xpath>
-        </field>
-    </record>
+            <field name="name">sale.order.discuss.inherit</field>
+            <field name="model">discuss.channel</field>
+            <field name="inherit_id" ref="mail.discuss_channel_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Sale Orders" 
+                        name="sale_orders" 
+                        attrs="{'invisible': [('sale_order_count', '=', 0)]}">
+                        <div class="oe_button_box" name="button_box">
+                            <button 
+                                name="action_view_sale_orders"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-shopping-cart"
+                                attrs="{'invisible': [('sale_order_count', '=', 0)]}">
+                                <field name="sale_order_count" string="Sale Orders" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <field name="sale_order_ids" readonly="1">
+                            <tree string="Sale Orders">
+                                <field name="name"/>
+                                <field name="partner_id"/>
+                                <field name="date_order"/>
+                                <field name="amount_total" sum="Total"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
 
         <record model="ir.ui.view" id="messenger_mail_message_view_form_inherit">
             <field name="name">messenger.mail.message.view.form.inherit</field>
