@@ -19,8 +19,7 @@
                 </header>
                 <sheet>
                     <group string="معلومات الرسالة">
-                        <group >
-
+                        <group>
                             <field name="provider_id" />
                             <field name="company_id" />
                             <field name="model" />
@@ -58,6 +57,7 @@
                             <!-- <field name="birth_date" string="Birth Date"/> -->
                         </group>
                     </group>
+                    <group>
                         <group string="الملاحظات">
                             <field name="note" string="ملاحظات"/>
                             
