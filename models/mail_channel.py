@@ -158,25 +158,64 @@ class MailChannel(models.Model):
 
     instagram_channel = fields.Boolean(string="Instagram Channel")
     facebook_channel = fields.Boolean(string="Facebook Channel")
-    sale_order_count = fields.Integer(
-        string='Sale Order Count', 
-        compute='_compute_sale_orders',
-        store=False
-    )
     
-    def action_view_sale_orders(self):
+    
+    
+    sale_order_ids = fields.One2many('sale.order', 'partner_id', string='Sale Orders', related='partner_id.sale_order_ids')
+    order_line_ids = fields.One2many('sale.order.line', compute='_compute_order_lines')
+    
+    def action_open_create_sale_order_wizard(self):
         self.ensure_one()
-        partner = self.channel_partner_ids.filtered(lambda p: p != self.env.user.partner_id)
-        if partner:
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Create Sale Order',
+            'res_model': 'create.sale.order.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_partner_id': self.partner_id.id},
+        }
+    @api.depends('sale_order_ids.order_line')
+    def _compute_order_lines(self):
+        for record in self:
+            record.order_line_ids = record.sale_order_ids.mapped('order_line')
+    
+        
+        
+        
+    def action_add_sale_order(self):
+        return {
+            'name': _('Add Sale Order'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'sale.order',
+            'view_mode': 'form',
+            'context': {
+                'default_partner_id': self.partner_id.id,
+                'default_origin': f'Facebook Conversation: {self.id}',
+            },
+            'target': 'new',
+        }
+
+    def action_add_order_line(self):
+        if not self.sale_order_ids:
             return {
-                'name': 'Customer Sales',
-                'type': 'ir.actions.act_window',
-                'res_model': 'sale.order',
-                'view_mode': 'tree,form',
-                'domain': [('partner_id', '=', partner.id)],
-                'target': 'new',
-                'context': {'create': False}
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': _('No Sale Order'),
+                    'message': _('Please create a sale order first.'),
+                    'type': 'warning',
+                }
             }
+        return {
+            'name': _('Add Order Line'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'sale.order.line',
+            'view_mode': 'form',
+            'context': {
+                'default_order_id': self.sale_order_ids[0].id,
+            },
+            'target': 'new',
+        }
 
     def add_members(self, partner_ids=None, guest_ids=None, invite_to_rtc_call=False, open_chat_window=False, post_joined_message=True):
         """ Adds the given partner_ids and guest_ids as member of self channels. """
