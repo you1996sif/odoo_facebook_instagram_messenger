@@ -60,6 +60,7 @@
     "assets": {
         "web.assets_backend": [
             "odoo_facebook_instagram_messenger/static/src/xml/AgentsList.xml",
+            "odoo_facebook_instagram_messenger/static/src/xml/gg.xml",
             "odoo_facebook_instagram_messenger/static/src/js/common/**/*",
         ],
     },

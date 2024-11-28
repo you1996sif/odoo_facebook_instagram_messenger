@@ -10,6 +10,8 @@ from odoo.exceptions import UserError
 from odoo.addons.mail.models.discuss.discuss_channel_member import ChannelMember
 from odoo.osv import expression
 
+from odoo import models, fields, api
+from odoo.http import request, Controller, route
 
 def _channel_info(self):
     """ Get the information header for the current channels
@@ -159,55 +161,6 @@ class MailChannel(models.Model):
     instagram_channel = fields.Boolean(string="Instagram Channel")
     facebook_channel = fields.Boolean(string="Facebook Channel")
     
-    facebook_page_id = fields.Many2one('res.users', string='Facebook Page')
-    sale_order_ids = fields.One2many('sale.order', 'partner_id', related='channel_partner_ids.sale_order_ids')
-
-    @api.depends('channel_partner_ids')
-    def _compute_sale_orders(self):
-        for channel in self:
-            if len(channel.channel_partner_ids) == 2:
-                partner = channel.channel_partner_ids.filtered(
-                    lambda p: p != self.env.user.partner_id
-                )
-                if partner:
-                    channel.sale_order_ids = self.env['sale.order'].search([
-                        ('partner_id', '=', partner.id)
-                    ])
-    sale_order_count = fields.Integer(
-        string='Sale Order Count', 
-        compute='_compute_sale_orders',
-        store=False
-    )
-    
-    def action_view_sales(self):
-        self.ensure_one()
-        partner = self.channel_partner_ids.filtered(lambda p: p != self.env.user.partner_id)
-        
-        return {
-            'name': 'Customer Sales',
-            'type': 'ir.actions.act_window',
-            'view_mode': 'tree,form',
-            'res_model': 'sale.order',
-            'domain': [('partner_id', '=', partner.id)],
-            'target': 'new',
-        }
-    def action_view_sale_orders(self):
-        self.ensure_one()
-        
-        # Find the partner for this channel (in a 1-on-1 chat)
-        partner = self.channel_partner_ids.filtered(
-            lambda p: p != self.env.user.partner_id
-        )
-        
-        # Return action to view sale orders for this partner
-        return {
-            'name': 'Sale Orders',
-            'type': 'ir.actions.act_window',
-            'view_mode': 'tree,form',
-            'res_model': 'sale.order',
-            'domain': [('partner_id', '=', partner.id)],
-            'context': {'create': False}
-        }
 
     def add_members(self, partner_ids=None, guest_ids=None, invite_to_rtc_call=False, open_chat_window=False, post_joined_message=True):
         """ Adds the given partner_ids and guest_ids as member of self channels. """
@@ -316,6 +269,12 @@ class MailChannel(models.Model):
                 'model': "discuss.channel",
             }
         })
+    def get_partner_sales(self):
+        self.ensure_one()
+        partner = self.channel_partner_ids.filtered(lambda p: p != self.env.user.partner_id)
+        if partner:
+            return self.env['sale.order'].search([('partner_id', '=', partner.id)])
+        return False
 
 @api.model_create_multi
 def create(self, vals_list):
@@ -335,6 +294,24 @@ def create(self, vals_list):
 ChannelMember.create = create
 
 
+
+class DiscussController(Controller):
+    @route('/discuss/sales/<int:channel_id>', type='json', auth="user")
+    def get_channel_sales(self, channel_id):
+        channel = request.env['discuss.channel'].browse(channel_id)
+        sales = channel.get_partner_sales()
+        if sales:
+            return {
+                'sales': [{
+                    'id': sale.id,
+                    'name': sale.name,
+                    'date': sale.date_order,
+                    'amount': sale.amount_total,
+                    'state': sale.state
+                } for sale in sales]
+            }
+        return {'sales': []}
+    
 class IrAsset(models.Model):
     _inherit = 'ir.asset'
 
@@ -345,3 +322,8 @@ class IrAsset(models.Model):
         if is_whatsapp_installed and bundle == 'web.assets_backend':
             path = self._get_paths('odoo_facebook_instagram_messenger/static/src/xml/AgentsList.xml', installed)
             asset_paths.remove(path, bundle)
+            
+            
+            
+            
+            

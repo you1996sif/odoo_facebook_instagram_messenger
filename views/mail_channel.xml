@@ -15,26 +15,6 @@
             </field>
         </record>
         
-        <!-- <record id="sale_order_discuss_inherit" model="ir.ui.view">
-            <field name="name">sale.order.discuss.inherit</field>
-            <field name="model">discuss.channel</field>
-            <field name="inherit_id" ref="mail.discuss_channel_view_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//div[hasclass('o_action_manager')]" position="inside">
-                <div class="sale_orders_section">
-                    <field name="sale_order_ids" readonly="1">
-                        <tree string="Sale Orders">
-                            <field name="name"/>
-                            <field name="partner_id"/>
-                            <field name="date_order"/>
-                            <field name="amount_total"/>
-                            <field name="state"/>
-                        </tree>
-                    </field>
-                </div>
-            </xpath>
-            </field>
-        </record> -->
 
         <record model="ir.ui.view" id="messenger_mail_message_view_form_inherit">
             <field name="name">messenger.mail.message.view.form.inherit</field>
