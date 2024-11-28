@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+        <record id="disc    uss_sales_tree" model="ir.ui.view">
+        <field name="name">discuss.sales.tree</field>
+        <field name="model">discuss.sales</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="channel_id"/>
+                <field name="partner_id"/> 
+                <field name="sale_count"/>
+            </tree>
+        </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="discuss_sales_form" model="ir.ui.view">
+        <field name="name">discuss.sales.form</field>
+        <field name="model">discuss.sales</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="channel_id"/>
+                        <field name="partner_id"/>
+                        <field name="sale_count"/>
+                    </group>
+                    <notebook>
+                        <page string="Sales Orders">
+                            <field name="sale_order_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_discuss_sales" model="ir.actions.act_window">
+        <field name="name">Discuss Sales</field>
+        <field name="res_model">discuss.sales</field>
+        <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_discuss_sales"
+        name="Sales in Discuss"
+        action="action_discuss_sales"
+        parent="mail.menu_root_discuss"/>
+        <!-- mail.menu_root_discuss -->
+</odoo>

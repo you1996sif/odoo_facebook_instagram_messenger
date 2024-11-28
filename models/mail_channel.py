@@ -163,6 +163,7 @@ class MailChannel(models.Model):
     
     sale_order_ids = fields.One2many('sale.order', 'partner_id', string='Sale Orders', related='channel_partner_ids.sale_order_ids')
     order_line_ids = fields.One2many('sale.order.line', compute='_compute_order_lines')
+    sales_id = fields.One2many('discuss.sales', 'channel_id')
     def action_view_sale_orders(self):
         self.ensure_one()
         partner = self.channel_partner_ids.filtered(lambda p: p != self.env.user.partner_id)

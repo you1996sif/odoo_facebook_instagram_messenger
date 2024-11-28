@@ -54,6 +54,7 @@
         "views/template_components_views.xml",
         "views/template_components_views.xml",
         "views/template_components_views.xml",
+        "views/DISCUSS.xml",
         # 'views/helpdesk_ticket_views.xml',
     ],
     "assets": {
