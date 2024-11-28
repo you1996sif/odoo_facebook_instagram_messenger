@@ -31,7 +31,7 @@ class InstagramHistoryInherit(models.Model):
     category_id = fields.Many2many(related='partner_id.category_id', string='Tags', readonly=False)
     district_id = fields.Many2one(related='partner_id.district_id', string='District', readonly=False, required=True)
     
-    helpdesk_ticket_ids = fields.One2many('helpdesk.ticket', 'facebook_conversation_id', string='Helpdesk Tickets')
+    helpdesk_ticket_ids = fields.One2many('helpdesk.ticket', 'instagram_history_id', string='Helpdesk Tickets')
     ticket_count = fields.Integer(compute='_compute_ticket_count', string='Ticket Count')
 
     
@@ -148,7 +148,7 @@ class InstagramHistoryInherit(models.Model):
             'name': _('Helpdesk Tickets'),
             'view_mode': 'tree,form',
             'res_model': 'helpdesk.ticket',
-            'domain': [('facebook_conversation_id', '=', self.id)],
+            'domain': [('instagram_history_id', '=', self.id)],
             'type': 'ir.actions.act_window',
             'context': {'default_facebook_conversation_id': self.id},
         }
