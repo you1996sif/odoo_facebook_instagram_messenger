@@ -23,14 +23,16 @@
                 <xpath expr="//notebook" position="inside">
                     <page string="Sale Orders" 
                         name="sale_orders" 
-                        attrs="{'invisible': [('sale_order_count', '=', 0)]}">
+                       
+                        invisible="sale_order_count = 0">
                         <div class="oe_button_box" name="button_box">
                             <button 
                                 name="action_view_sale_orders"
                                 type="object"
                                 class="oe_stat_button"
                                 icon="fa-shopping-cart"
-                                attrs="{'invisible': [('sale_order_count', '=', 0)]}">
+                                invisible="sale_order_count = 0"
+                               >
                                 <field name="sale_order_count" string="Sale Orders" widget="statinfo"/>
                             </button>
                         </div>
