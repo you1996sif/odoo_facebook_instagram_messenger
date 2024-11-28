@@ -161,7 +161,7 @@ class MailChannel(models.Model):
     
     
     
-    sale_order_ids = fields.One2many('sale.order', 'partner_id', string='Sale Orders', related='partner_id.sale_order_ids')
+    sale_order_ids = fields.One2many('sale.order', 'partner_id', string='Sale Orders', related='author_id.sale_order_ids')
     order_line_ids = fields.One2many('sale.order.line', compute='_compute_order_lines')
     
     def action_open_create_sale_order_wizard(self):
