@@ -20,7 +20,8 @@
             <field name="model">discuss.channel</field>
             <field name="inherit_id" ref="mail.discuss_channel_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//div[hasclass('o-mail-Discuss-content')]" position="inside">
+                <xpath expr="//div[hasclass('o_action_manager')]" position="inside">
+                <div class="sale_orders_section">
                     <field name="sale_order_ids" readonly="1">
                         <tree string="Sale Orders">
                             <field name="name"/>
@@ -30,7 +31,8 @@
                             <field name="state"/>
                         </tree>
                     </field>
-                </xpath>
+                </div>
+            </xpath>
             </field>
         </record>
 
