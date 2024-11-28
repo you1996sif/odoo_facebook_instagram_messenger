@@ -160,25 +160,55 @@ class MailChannel(models.Model):
     facebook_channel = fields.Boolean(string="Facebook Channel")
     
     
+    sale_order_count = fields.Integer(
+        string='Sale Order Count', 
+        compute='_compute_sale_orders'
+    )
     
     sale_order_ids = fields.Many2many(
         'sale.order', 
         string='Sale Orders', 
-        compute='_compute_sale_orders'
+        compute='_compute_sale_orders',
+        store=False
     )
-
+    @api.depends('channel_partner_ids')
     def _compute_sale_orders(self):
         for channel in self:
-            # Find the partner(s) associated with this channel
-            channel_partners = channel.channel_partner_ids
-            
-            # Search for sale orders related to these partners
-            sale_orders = self.env['sale.order'].search([
-                ('partner_id', 'in', channel_partners.ids)
-            ])
-            
-            channel.sale_order_ids = sale_orders
-            
+            # If it's a chat between two users, find the partner
+            if len(channel.channel_partner_ids) == 2:
+                partner = channel.channel_partner_ids.filtered(
+                    lambda p: p != self.env.user.partner_id
+                )
+                
+                # Search for sale orders related to this partner
+                sale_orders = self.env['sale.order'].search([
+                    ('partner_id', '=', partner.id)
+                ])
+                
+                channel.sale_order_ids = sale_orders
+                channel.sale_order_count = len(sale_orders)
+            else:
+                # For group chats or channels, clear the sale orders
+                channel.sale_order_ids = False
+                channel.sale_order_count = 0
+
+    def action_view_sale_orders(self):
+        self.ensure_one()
+        
+        # Find the partner for this channel (in a 1-on-1 chat)
+        partner = self.channel_partner_ids.filtered(
+            lambda p: p != self.env.user.partner_id
+        )
+        
+        # Return action to view sale orders for this partner
+        return {
+            'name': 'Sale Orders',
+            'type': 'ir.actions.act_window',
+            'view_mode': 'tree,form',
+            'res_model': 'sale.order',
+            'domain': [('partner_id', '=', partner.id)],
+            'context': {'create': False}
+        }
 
     def add_members(self, partner_ids=None, guest_ids=None, invite_to_rtc_call=False, open_chat_window=False, post_joined_message=True):
         """ Adds the given partner_ids and guest_ids as member of self channels. """
