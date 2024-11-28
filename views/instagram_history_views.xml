@@ -6,7 +6,7 @@
             <form string="Instagram History">
                 <header>
                     <field name="type" widget="statusbar" />
-                    <!-- <button name="action_open_create_sale_order_wizard" string="Create Sale Order" type="object" class="btn-primary"/>
+                    <button name="action_open_create_sale_order_wizard" string="Create Sale Order" type="object" class="btn-primary"/>
                         <button name="action_create_ticket" 
                                 string="Create Ticket" 
                                 type="object" 
@@ -15,7 +15,7 @@
                                 type="object"
                                 class="btn-secondary"
                                 icon="fa-ticket"
-                                string="View Tickets"/> -->
+                                string="View Tickets"/>
                 </header>
                 <sheet>
                     <group>
@@ -40,7 +40,7 @@
                             <field name="street2" string="Street 2"/>
                             <field name="state_id" string="State"/>
                             <field name="district_id" string="District"/>
-                            <field name="city" string="City"/>
+                            <!-- <field name="city" string="City"/> -->
                             <field name="zip" string="ZIP"/>
                             <field name="country_id" string="Country"/>
                         </group>
@@ -86,7 +86,7 @@
                                 </tree>
                             </field>
                         </page>
-                        <!-- <page string="Helpdesk Tickets">
+                        <page string="Helpdesk Tickets">
                             <field name="helpdesk_ticket_ids">
                                 <tree>
                                     <field name="name"/>
@@ -96,7 +96,7 @@
                                     <field name="priority" widget="priority"/>
                                 </tree>
                             </field>
-                        </page> -->
+                        </page>
                     </notebook>
                 </sheet>
             </form>
