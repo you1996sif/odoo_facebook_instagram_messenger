@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="discuss_sales_view_form" model="ir.ui.view">
+        <field name="name">discuss.channel.form.inherit.sales</field>
+        <field name="model">discuss.channel</field>
+        <field name="inherit_id" ref="mail.discuss_channel_view_form"/> 
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Sales Orders">
+                    <field name="sale_order_ids">
+                        <tree>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="date_order"/>
+                            <field name="amount_total"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
     <!-- Tree View -->
         <record id="discuss_sales_tree" model="ir.ui.view">
         <field name="name">discuss.sales.tree</field>
