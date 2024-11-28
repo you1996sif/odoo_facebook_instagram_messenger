@@ -158,7 +158,11 @@ class MailChannel(models.Model):
 
     instagram_channel = fields.Boolean(string="Instagram Channel")
     facebook_channel = fields.Boolean(string="Facebook Channel")
-    
+    sale_order_count = fields.Integer(
+        string='Sale Order Count', 
+        compute='_compute_sale_orders',
+        store=False
+    )
     
     def action_view_sale_orders(self):
         self.ensure_one()
