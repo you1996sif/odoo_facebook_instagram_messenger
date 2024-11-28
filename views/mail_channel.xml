@@ -15,7 +15,7 @@
             </field>
         </record>
         
-        <record id="sale_order_discuss_inherit" model="ir.ui.view">
+        <!-- <record id="sale_order_discuss_inherit" model="ir.ui.view">
             <field name="name">sale.order.discuss.inherit</field>
             <field name="model">discuss.channel</field>
             <field name="inherit_id" ref="mail.discuss_channel_view_form"/>
@@ -34,7 +34,7 @@
                 </div>
             </xpath>
             </field>
-        </record>
+        </record> -->
 
         <record model="ir.ui.view" id="messenger_mail_message_view_form_inherit">
             <field name="name">messenger.mail.message.view.form.inherit</field>
