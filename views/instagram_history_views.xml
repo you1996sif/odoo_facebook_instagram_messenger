@@ -24,9 +24,11 @@
                             <field name="company_id" />
                             <field name="model" />
                             <field name="date" />
-                            
                             <field name="partner_id" />
                             <field name="account_id" />
+                        </group>
+                        <group>
+
                             <field name="message" />
                             <field name="message_id" />
                             <field name="mail_message_id" readonly="1"/>
