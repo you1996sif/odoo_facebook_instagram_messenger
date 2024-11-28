@@ -13,7 +13,7 @@ class InstagramHistoryInherit(models.Model):
         ('active', 'Active'),
         ('archived', 'Archived')
     ], default='active', string='Status')
-    sale_order_ids = fields.One2many('sale.order', 'author_id', string='Sale Orders', related='author_id.sale_order_ids')
+    sale_order_ids = fields.One2many('sale.order', 'partner_id', string='Sale Orders', related='author_id.sale_order_ids')
     order_line_ids = fields.One2many('sale.order.line', compute='_compute_order_lines')
     
     
