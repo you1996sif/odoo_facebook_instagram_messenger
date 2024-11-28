@@ -20,38 +20,19 @@
             <field name="inherit_id" ref="mail.discuss_channel_view_form"/>
             <field name="arch" type="xml">
                 <!-- <field name="description" position="after"> -->
-                <xpath expr="//button[hasclass('o-mail-DiscussSidebarChannel')]" position="after">
-                    <notebook>
-                            
-                            <page string="Sale Orders">
-                                <button name="action_add_sale_order" string="Add Sale Order" type="object" class="btn-secondary"/>
-                                <field name="sale_order_ids">
-                                    <tree editable="bottom">
-                                        <field name="name"/>
-                                        <field name="date_order"/>
-                                        <field name="state"/>
-                                        <field name="amount_total"/>
-                                        <field name="return_deadline"/>
-                                        
-                                    </tree>
-                                </field>
-                            </page>
-                            <page string="Order Lines">
-                                <button name="action_add_order_line" string="Add Order Line" type="object" class="btn-secondary"/>
-                                <field name="order_line_ids" context="{'default_order_id': active_id}">
-                                    <tree editable="bottom">
-                                        <field name="order_id"/>
-                                        <field name="product_id"/>
-                                        <field name="name"/>
-                                        <field name="product_uom_qty"/>
-                                        <field name="price_unit"/>
-                                        <field name="price_subtotal" sum="Total"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            
-                        </notebook>
-                </xpath>
+                <xpath expr="//div[hasclass('o-mail-DiscussSidebarCategory-tus-InstaChannels')]" position="after">
+                    <div class="o-mail-DiscussSidebarCategory d-flex align-items-center my-1 o-mail-DiscussSidebarCategory-sales">
+                        <div class="d-flex align-items-baseline mx-1 btn p-0 text-start text-700 opacity-100-hover opacity-75">
+                            <i class="o-mail-DiscussSidebarCategory-icon small me-1 oi oi-chevron-right"></i>
+                            <span class="btn-sm p-0 text-uppercase fw-bolder">Sales Orders</span>
+                        </div>
+                        <div class="flex-grow-1"></div>
+                        <div class="d-flex me-3"></div>
+                        <div class="o-mail-DiscussSidebar-badge badge rounded-pill me-3 o-discuss-badge fw-bold">
+                            <field name="sale_order_count"/>
+                        </div>
+                    </div>
+                </xpath>    
             </field>
         </record>
         <record id="discuss_channel_view_form_inheritt" model="ir.ui.view">
