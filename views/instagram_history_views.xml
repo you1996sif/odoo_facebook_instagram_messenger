@@ -6,7 +6,7 @@
             <form string="Instagram History">
                 <header>
                     <field name="type" widget="statusbar" />
-                    <button name="action_open_create_sale_order_wizard" string="Create Sale Order" type="object" class="btn-primary"/>
+                    <!-- <button name="action_open_create_sale_order_wizard" string="Create Sale Order" type="object" class="btn-primary"/>
                         <button name="action_create_ticket" 
                                 string="Create Ticket" 
                                 type="object" 
@@ -15,7 +15,7 @@
                                 type="object"
                                 class="btn-secondary"
                                 icon="fa-ticket"
-                                string="View Tickets"/>
+                                string="View Tickets"/> -->
                 </header>
                 <sheet>
                     <group>
