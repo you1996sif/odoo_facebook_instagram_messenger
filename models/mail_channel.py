@@ -182,6 +182,16 @@ class MailChannel(models.Model):
         store=False
     )
     
+    def action_open_form(self):
+        return {
+            'name': 'Channel Info',
+            'type': 'ir.actions.act_window',
+            'res_model': 'discuss.channel',
+            'res_id': self.id,
+            'view_mode': 'form',
+            'target': 'new'
+        }
+    
     @api.model
     def get_view_hierarchy(self, view_id):
         view = self.env['ir.ui.view'].browse(view_id)
