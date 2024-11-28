@@ -158,6 +158,25 @@ class MailChannel(models.Model):
 
     instagram_channel = fields.Boolean(string="Instagram Channel")
     facebook_channel = fields.Boolean(string="Facebook Channel")
+    
+    
+    
+    
+    
+    
+    
+    current_partner_sale_orders = fields.One2many('sale.order', 'partner_id', compute='_compute_current_partner_sales')
+    
+    @api.depends('channel_partner_ids')
+    def _compute_current_partner_sales(self):
+        for channel in self:
+            partner = channel.channel_partner_ids.filtered(lambda p: p != self.env.user.partner_id)
+            if partner:
+                channel.current_partner_sale_orders = self.env['sale.order'].search([
+                    ('partner_id', '=', partner.id)
+                ])
+            else:
+                channel.current_partner_sale_orders = False
 
     def add_members(self, partner_ids=None, guest_ids=None, invite_to_rtc_call=False, open_chat_window=False, post_joined_message=True):
         """ Adds the given partner_ids and guest_ids as member of self channels. """
