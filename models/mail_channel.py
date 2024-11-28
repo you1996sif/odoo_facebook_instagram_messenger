@@ -161,7 +161,9 @@ class MailChannel(models.Model):
     
     
     
-    sale_order_ids = fields.One2many('sale.order', 'partner_id', string='Sale Orders', related='channel_partner_ids.sale_order_ids')
+    # sale_order_ids = fields.One2many('sale.order', 'partner_id', string='Sale Orders', related='channel_partner_ids.sale_order_ids')
+    sale_order_ids = fields.One2many('sale.order', 'partner_id', compute='_compute_sale_orders')
+
     order_line_ids = fields.One2many('sale.order.line', compute='_compute_order_lines')
     sales_id = fields.One2many('discuss.sales', 'channel_id')
     def action_view_sale_orders(self):
@@ -177,11 +179,11 @@ class MailChannel(models.Model):
                 'target': 'new',
                 'context': {'create': False}
             }
-    sale_order_count = fields.Integer(
-        string='Sale Order Count', 
-        compute='_compute_sale_orders',
-        store=False
-    )
+    # sale_order_count = fields.Integer(
+    #     string='Sale Order Count', 
+    #     compute='_compute_sale_orders',
+    #     store=False
+    # )
     
     def action_open_form(self):
         return {
@@ -210,10 +212,16 @@ class MailChannel(models.Model):
             'target': 'new',
             'context': {'default_partner_id': self.partner_id.id},
         }
-    @api.depends('sale_order_ids.order_line')
-    def _compute_order_lines(self):
-        for record in self:
-            record.order_line_ids = record.sale_order_ids.mapped('order_line')
+    @api.depends('channel_partner_ids')
+    def _compute_sale_orders(self):
+        for channel in self:
+            partner = channel.channel_partner_ids.filtered(lambda p: p != self.env.user.partner_id)
+            if partner:
+                channel.sale_order_ids = self.env['sale.order'].search([
+                    ('partner_id', '=', partner.id)
+                ])
+            else:
+                channel.sale_order_ids = False
     
         
         

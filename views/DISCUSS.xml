@@ -1,72 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="discuss_sales_view_form" model="ir.ui.view">
-        <field name="name">discuss.channel.form.inherit.sales</field>
+    <record id="view_discuss_sales_combined" model="ir.ui.view">
+        <field name="name">discuss.sales.combined</field>
         <field name="model">discuss.channel</field>
-        <field name="inherit_id" ref="mail.discuss_channel_view_form"/> 
-        <field name="arch" type="xml">
-            <xpath expr="//notebook" position="inside">
-                <page string="Sales Orders">
-                    <field name="sale_order_ids">
-                        <tree>
-                            <field name="name"/>
-                            <field name="partner_id"/>
-                            <field name="date_order"/>
-                            <field name="amount_total"/>
-                            <field name="state"/>
-                        </tree>
-                    </field>
-                </page>
-            </xpath>
-        </field>
-    </record>
-    <!-- Tree View -->
-        <record id="discuss_sales_tree" model="ir.ui.view">
-        <field name="name">discuss.sales.tree</field>
-        <field name="model">discuss.sales</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="channel_id"/>
-                <field name="partner_id"/> 
-                <field name="sale_count"/>
-            </tree>
-        </field>
-        </record>
-
-        <!-- Form View -->
-        <record id="discuss_sales_form" model="ir.ui.view">
-        <field name="name">discuss.sales.form</field>
-        <field name="model">discuss.sales</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <group>
-                        <field name="channel_id"/>
-                        <field name="partner_id"/>
-                        <field name="sale_count"/>
-                    </group>
-                    <notebook>
-                        <page string="Sales Orders">
-                            <field name="sale_order_ids"/>
-                        </page>
-                    </notebook>
+                    <!-- Chat Messages Section -->
+                    <div class="chat-section">
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                    <!-- Sales Orders Section -->
+                    <div class="sales-section">
+                        <field name="sale_order_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="date_order"/>
+                                <field name="amount_total"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </div>
                 </sheet>
             </form>
         </field>
-        </record>
+    </record>
 
-        <!-- Action -->
-        <record id="action_discuss_sales" model="ir.actions.act_window">
-        <field name="name">Discuss Sales</field>
-        <field name="res_model">discuss.sales</field>
-        <field name="view_mode">tree,form</field>
-        </record>
+    <!-- Action -->
+    <record id="action_discuss_sales_combined" model="ir.actions.act_window">
+        <field name="name">Messages and Sales</field>
+        <field name="res_model">discuss.channel</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_discuss_sales_combined"/>
+    </record>
 
-        <!-- Menu -->
-        <menuitem id="menu_discuss_sales"
-        name="Sales in Discuss"
-        action="action_discuss_sales"
+    <!-- Menu Item -->
+    <menuitem id="menu_discuss_sales_combined"
+        name="Messages and Sales"
+        action="action_discuss_sales_combined"
+        
         parent="mail.menu_root_discuss"
          sequence="25"/>
-        <!-- mail.menu_root_discuss -->
 </odoo>
