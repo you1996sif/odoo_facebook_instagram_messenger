@@ -11,6 +11,19 @@
                     <field name="instagram_channel" invisible="1"/>
                     <field name="facebook_channel" invisible="1"/>
                 </field>
+            <xpath expr="//notebook" position="inside">
+            <page string="Sale Orders" name="sale_orders">
+                <field name="sale_order_ids" readonly="1">
+                    <tree string="Sale Orders">
+                        <field name="name"/>
+                        <field name="partner_id"/>
+                        <field name="date_order"/>
+                        <field name="amount_total"/>
+                        <field name="state"/>
+                    </tree>
+                </field>
+            </page>
+        </xpath>
             </field>
         </record>
 

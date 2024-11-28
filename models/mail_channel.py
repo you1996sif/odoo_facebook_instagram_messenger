@@ -158,6 +158,27 @@ class MailChannel(models.Model):
 
     instagram_channel = fields.Boolean(string="Instagram Channel")
     facebook_channel = fields.Boolean(string="Facebook Channel")
+    
+    
+    
+    sale_order_ids = fields.Many2many(
+        'sale.order', 
+        string='Sale Orders', 
+        compute='_compute_sale_orders'
+    )
+
+    def _compute_sale_orders(self):
+        for channel in self:
+            # Find the partner(s) associated with this channel
+            channel_partners = channel.channel_partner_ids
+            
+            # Search for sale orders related to these partners
+            sale_orders = self.env['sale.order'].search([
+                ('partner_id', 'in', channel_partners.ids)
+            ])
+            
+            channel.sale_order_ids = sale_orders
+            
 
     def add_members(self, partner_ids=None, guest_ids=None, invite_to_rtc_call=False, open_chat_window=False, post_joined_message=True):
         """ Adds the given partner_ids and guest_ids as member of self channels. """
