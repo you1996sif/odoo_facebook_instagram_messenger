@@ -19,20 +19,19 @@
             <field name="model">discuss.channel</field>
             <field name="inherit_id" ref="mail.discuss_channel_view_form"/>
             <field name="arch" type="xml">
-                <!-- <field name="description" position="after"> -->
-                <xpath expr="//div[hasclass('o-mail-DiscussSidebarCategory-tus-InstaChannels')]" position="after">
-                    <div class="o-mail-DiscussSidebarCategory d-flex align-items-center my-1 o-mail-DiscussSidebarCategory-sales">
-                        <div class="d-flex align-items-baseline mx-1 btn p-0 text-start text-700 opacity-100-hover opacity-75">
-                            <i class="o-mail-DiscussSidebarCategory-icon small me-1 oi oi-chevron-right"></i>
-                            <span class="btn-sm p-0 text-uppercase fw-bolder">Sales Orders</span>
-                        </div>
-                        <div class="flex-grow-1"></div>
-                        <div class="d-flex me-3"></div>
-                        <div class="o-mail-DiscussSidebar-badge badge rounded-pill me-3 o-discuss-badge fw-bold">
-                            <field name="sale_order_count"/>
-                        </div>
-                    </div>
-                </xpath>    
+               <xpath expr="//notebook" position="inside">
+                    <page string="Sales" name="sales">
+                        <field name="sale_order_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="date_order"/>
+                                <field name="partner_id"/>
+                                <field name="amount_total"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
             </field>
         </record>
         <record id="discuss_channel_view_form_inheritt" model="ir.ui.view">

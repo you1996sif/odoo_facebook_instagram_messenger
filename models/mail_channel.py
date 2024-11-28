@@ -181,6 +181,14 @@ class MailChannel(models.Model):
         compute='_compute_sale_orders',
         store=False
     )
+    
+    @api.model
+    def get_view_hierarchy(self, view_id):
+        view = self.env['ir.ui.view'].browse(view_id)
+        result = ''
+        for arch in view.get_combined_arch():
+            result += str(arch) + '\n'
+        return result
     def action_open_create_sale_order_wizard(self):
         self.ensure_one()
         return {
