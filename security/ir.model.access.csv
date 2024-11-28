@@ -9,3 +9,4 @@ access_messenger_template,access.messenger.template,model_messenger_template,,1,
 access_template_components,access.template.components,model_template_components,,1,1,1,1
 access_template_buttons,access.template.buttons,model_template_buttons,,1,1,1,1
 access_template_components,access.template.components,model_template_components,,1,1,1,1
+access_facebook_user_conversation_manager,discuss.sales.manager,model_discuss_sales,base.group_system,1,1,1,1
