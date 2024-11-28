@@ -173,7 +173,11 @@ class MailChannel(models.Model):
                     channel.sale_order_ids = self.env['sale.order'].search([
                         ('partner_id', '=', partner.id)
                     ])
-    
+    sale_order_count = fields.Integer(
+        string='Sale Order Count', 
+        compute='_compute_sale_orders',
+        store=False
+    )
     
     def action_view_sales(self):
         self.ensure_one()
