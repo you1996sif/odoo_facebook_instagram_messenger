@@ -54,12 +54,12 @@
         "views/template_components_views.xml",
         "views/template_components_views.xml",
         "views/template_components_views.xml",
+        'views/discuss_templates.xml',
         # 'views/helpdesk_ticket_views.xml',
     ],
     "assets": {
         "web.assets_backend": [
             "odoo_facebook_instagram_messenger/static/src/xml/AgentsList.xml",
-            "odoo_facebook_instagram_messenger/static/src/xml/temp.xml",
             "odoo_facebook_instagram_messenger/static/src/js/common/**/*",
         ],
     },

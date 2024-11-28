@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="discuss_thread_header_extend" inherit_id="mail.discuss_channel_view_form">
+        <xpath expr="//div[hasclass('o-mail-Discuss-header')]/div[last()]" position="before">
+            <button class="btn px-2" title="View Sales" name="action_view_sales" type="object">
+                <i class="fa fa-shopping-cart"/> Sales
+            </button>
+        </xpath>
+    </template>
+</odoo>

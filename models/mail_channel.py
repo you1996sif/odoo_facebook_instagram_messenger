@@ -159,43 +159,18 @@ class MailChannel(models.Model):
     instagram_channel = fields.Boolean(string="Instagram Channel")
     facebook_channel = fields.Boolean(string="Facebook Channel")
     
-    facebook_page_id = fields.Many2one('res.users', string='Facebook Page')
-    sale_order_ids = fields.One2many('sale.order', 'partner_id', related='channel_partner_ids.sale_order_ids')
-
-    sale_order_count = fields.Integer(
-        string='Sale Order Count', 
-        compute='_compute_sale_orders'
-    )
     
-   
-    @api.depends('channel_partner_ids')
-    def _compute_sale_orders(self):
-        for channel in self:
-            if len(channel.channel_partner_ids) == 2:
-                partner = channel.channel_partner_ids.filtered(
-                    lambda p: p != self.env.user.partner_id
-                )
-                if partner:
-                    channel.sale_order_ids = self.env['sale.order'].search([
-                        ('partner_id', '=', partner.id)
-                    ])
-
-    def action_view_sale_orders(self):
+    def action_view_sales(self):
         self.ensure_one()
+        partner = self.channel_partner_ids.filtered(lambda p: p != self.env.user.partner_id)
         
-        # Find the partner for this channel (in a 1-on-1 chat)
-        partner = self.channel_partner_ids.filtered(
-            lambda p: p != self.env.user.partner_id
-        )
-        
-        # Return action to view sale orders for this partner
         return {
-            'name': 'Sale Orders',
+            'name': 'Customer Sales',
             'type': 'ir.actions.act_window',
             'view_mode': 'tree,form',
             'res_model': 'sale.order',
             'domain': [('partner_id', '=', partner.id)],
-            'context': {'create': False}
+            'target': 'new',
         }
 
     def add_members(self, partner_ids=None, guest_ids=None, invite_to_rtc_call=False, open_chat_window=False, post_joined_message=True):
