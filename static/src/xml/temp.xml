@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="discuss.channel.SaleOrders">
+        <div class="o-mail-Thread-content">
+            <t t-if="sale_order_ids and sale_order_ids.length">
+                <div class="sale-orders-section">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Order</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="sale_order_ids" t-as="order">
+                                <tr>
+                                    <td><t t-esc="order.name"/></td>
+                                    <td><t t-esc="order.date_order"/></td>
+                                    <td><t t-esc="order.amount_total"/></td>
+                                    <td><t t-esc="order.state"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

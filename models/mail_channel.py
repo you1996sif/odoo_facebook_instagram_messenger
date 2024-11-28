@@ -159,38 +159,26 @@ class MailChannel(models.Model):
     instagram_channel = fields.Boolean(string="Instagram Channel")
     facebook_channel = fields.Boolean(string="Facebook Channel")
     
-    
+    facebook_page_id = fields.Many2one('res.users', string='Facebook Page')
+    sale_order_ids = fields.One2many('sale.order', 'partner_id', related='channel_partner_ids.sale_order_ids')
+
     sale_order_count = fields.Integer(
         string='Sale Order Count', 
         compute='_compute_sale_orders'
     )
     
-    sale_order_ids = fields.Many2many(
-        'sale.order', 
-        string='Sale Orders', 
-        compute='_compute_sale_orders',
-        store=False
-    )
+   
     @api.depends('channel_partner_ids')
     def _compute_sale_orders(self):
         for channel in self:
-            # If it's a chat between two users, find the partner
             if len(channel.channel_partner_ids) == 2:
                 partner = channel.channel_partner_ids.filtered(
                     lambda p: p != self.env.user.partner_id
                 )
-                
-                # Search for sale orders related to this partner
-                sale_orders = self.env['sale.order'].search([
-                    ('partner_id', '=', partner.id)
-                ])
-                
-                channel.sale_order_ids = sale_orders
-                channel.sale_order_count = len(sale_orders)
-            else:
-                # For group chats or channels, clear the sale orders
-                channel.sale_order_ids = False
-                channel.sale_order_count = 0
+                if partner:
+                    channel.sale_order_ids = self.env['sale.order'].search([
+                        ('partner_id', '=', partner.id)
+                    ])
 
     def action_view_sale_orders(self):
         self.ensure_one()
