@@ -177,6 +177,20 @@ class MailChannel(models.Model):
                 ])
             else:
                 channel.current_partner_sale_orders = False
+                
+    def action_view_sale_orders(self):
+        self.ensure_one()
+        partner = self.channel_partner_ids.filtered(lambda p: p != self.env.user.partner_id)
+        if partner:
+            return {
+                'name': 'Customer Sales',
+                'type': 'ir.actions.act_window',
+                'res_model': 'sale.order',
+                'view_mode': 'tree,form',
+                'domain': [('partner_id', '=', partner.id)],
+                'target': 'new',
+                'context': {'create': False}
+            }
 
     def add_members(self, partner_ids=None, guest_ids=None, invite_to_rtc_call=False, open_chat_window=False, post_joined_message=True):
         """ Adds the given partner_ids and guest_ids as member of self channels. """

@@ -11,6 +11,7 @@
                     <field name="instagram_channel" invisible="1"/>
                     <field name="facebook_channel" invisible="1"/>
                 </field>
+                
             </field>
         </record>
 
