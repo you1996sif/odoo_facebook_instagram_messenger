@@ -19,7 +19,8 @@
             <field name="model">discuss.channel</field>
             <field name="inherit_id" ref="mail.discuss_channel_view_form"/>
             <field name="arch" type="xml">
-                <field name="description" position="after">
+                <!-- <field name="description" position="after"> -->
+                <xpath expr="//button[hasclass('o-mail-DiscussSidebarChannel')]" position="after">
                     <notebook>
                             
                             <page string="Sale Orders">
@@ -50,7 +51,7 @@
                             </page>
                             
                         </notebook>
-                </field>
+                </xpath>
             </field>
         </record>
         <record id="discuss_channel_view_form_inheritt" model="ir.ui.view">
