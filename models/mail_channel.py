@@ -163,7 +163,19 @@ class MailChannel(models.Model):
     
     sale_order_ids = fields.One2many('sale.order', 'partner_id', string='Sale Orders', related='channel_partner_ids.sale_order_ids')
     order_line_ids = fields.One2many('sale.order.line', compute='_compute_order_lines')
-    
+    def action_view_sale_orders(self):
+        self.ensure_one()
+        partner = self.channel_partner_ids.filtered(lambda p: p != self.env.user.partner_id)
+        if partner:
+            return {
+                'name': 'Customer Sales',
+                'type': 'ir.actions.act_window',
+                'res_model': 'sale.order',
+                'view_mode': 'tree,form',
+                'domain': [('partner_id', '=', partner.id)],
+                'target': 'new',
+                'context': {'create': False}
+            }
     def action_open_create_sale_order_wizard(self):
         self.ensure_one()
         return {
