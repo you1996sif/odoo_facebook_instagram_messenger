@@ -179,11 +179,11 @@ class MailChannel(models.Model):
                 'target': 'new',
                 'context': {'create': False}
             }
-    # sale_order_count = fields.Integer(
-    #     string='Sale Order Count', 
-    #     compute='_compute_sale_orders',
-    #     store=False
-    # )
+    sale_order_count = fields.Integer(
+        string='Sale Order Count', 
+        compute='_compute_sale_orders',
+        store=False
+    )
     
     def action_open_form(self):
         return {
