@@ -36,7 +36,7 @@
     "company": "TechUltra Solutions Private Limited",
     "maintainer": "TechUltra Solutions",
     "license": "OPL-1",
-    "depends": ["base", "mail","sale_management","helpdesk",'sale'],
+    "depends": ["base", "mail","sale_management","helpdesk",'sale', 'mail', 'discuss'],
     "data": [
         "security/ir.model.access.csv",
         "wizard/messenger_compose_message_view.xml",
@@ -54,7 +54,6 @@
         "views/template_components_views.xml",
         "views/template_components_views.xml",
         "views/template_components_views.xml",
-        "views/DISCUSS.xml",
         # 'views/helpdesk_ticket_views.xml',
     ],
     "assets": {

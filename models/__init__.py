@@ -13,4 +13,3 @@ from . import ir_http
 from . import ir_attachment
 from . import helpdesk_ticket_inherit
 from . import instagram_history_inherit
-from . import dscs
