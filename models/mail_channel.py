@@ -10,8 +10,6 @@ from odoo.exceptions import UserError
 from odoo.addons.mail.models.discuss.discuss_channel_member import ChannelMember
 from odoo.osv import expression
 
-from odoo import models, fields, api
-from odoo.http import request, Controller, route
 
 def _channel_info(self):
     """ Get the information header for the current channels
@@ -161,6 +159,20 @@ class MailChannel(models.Model):
     instagram_channel = fields.Boolean(string="Instagram Channel")
     facebook_channel = fields.Boolean(string="Facebook Channel")
     
+    
+    def action_view_sale_orders(self):
+        self.ensure_one()
+        partner = self.channel_partner_ids.filtered(lambda p: p != self.env.user.partner_id)
+        if partner:
+            return {
+                'name': 'Customer Sales',
+                'type': 'ir.actions.act_window',
+                'res_model': 'sale.order',
+                'view_mode': 'tree,form',
+                'domain': [('partner_id', '=', partner.id)],
+                'target': 'new',
+                'context': {'create': False}
+            }
 
     def add_members(self, partner_ids=None, guest_ids=None, invite_to_rtc_call=False, open_chat_window=False, post_joined_message=True):
         """ Adds the given partner_ids and guest_ids as member of self channels. """
@@ -269,12 +281,6 @@ class MailChannel(models.Model):
                 'model': "discuss.channel",
             }
         })
-    def get_partner_sales(self):
-        self.ensure_one()
-        partner = self.channel_partner_ids.filtered(lambda p: p != self.env.user.partner_id)
-        if partner:
-            return self.env['sale.order'].search([('partner_id', '=', partner.id)])
-        return False
 
 @api.model_create_multi
 def create(self, vals_list):
@@ -294,24 +300,6 @@ def create(self, vals_list):
 ChannelMember.create = create
 
 
-
-class DiscussController(Controller):
-    @route('/discuss/sales/<int:channel_id>', type='json', auth="user")
-    def get_channel_sales(self, channel_id):
-        channel = request.env['discuss.channel'].browse(channel_id)
-        sales = channel.get_partner_sales()
-        if sales:
-            return {
-                'sales': [{
-                    'id': sale.id,
-                    'name': sale.name,
-                    'date': sale.date_order,
-                    'amount': sale.amount_total,
-                    'state': sale.state
-                } for sale in sales]
-            }
-        return {'sales': []}
-    
 class IrAsset(models.Model):
     _inherit = 'ir.asset'
 
@@ -322,8 +310,3 @@ class IrAsset(models.Model):
         if is_whatsapp_installed and bundle == 'web.assets_backend':
             path = self._get_paths('odoo_facebook_instagram_messenger/static/src/xml/AgentsList.xml', installed)
             asset_paths.remove(path, bundle)
-            
-            
-            
-            
-            

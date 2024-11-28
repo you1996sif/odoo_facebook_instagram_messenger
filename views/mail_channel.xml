@@ -11,10 +11,20 @@
                     <field name="instagram_channel" invisible="1"/>
                     <field name="facebook_channel" invisible="1"/>
                 </field>
-           
             </field>
         </record>
-        
+        <record id="discuss_channel_view_form_inheritt" model="ir.ui.view">
+            <field name="name">discuss.channel.form.view</field>
+            <field name="model">discuss.channel</field>
+            <field name="inherit_id" ref="mail.discuss_channel_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_sale_orders" type="object" class="btn btn-link">
+                        <span class="fa fa-shopping-cart"/> Sales
+                    </button>
+                </xpath>
+            </field>
+        </record>
 
         <record model="ir.ui.view" id="messenger_mail_message_view_form_inherit">
             <field name="name">messenger.mail.message.view.form.inherit</field>
