@@ -41,7 +41,7 @@
         "security/ir.model.access.csv",
         "wizard/messenger_compose_message_view.xml",
         "wizard/instagram_compose_message_view.xml",
-        # 'wizards/create_sale_order_wizard_views.xml',
+        'wizard/create_sale_order_wizard_views.xml',
         "views/mail_channel.xml",
         "views/messenger_provider_base.xml",
         "views/messenger_history_views.xml",
