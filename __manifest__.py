@@ -1,5 +1,5 @@
 {
-    "name": "newOdoo Facebook Messenger Integration | Odoo Instagram Messaging Integration | Bidirectional with Facebook/Instagram Graph API by Meta",
+    "name": "asdfnewOdoo Facebook Messenger Integration | Odoo Instagram Messaging Integration | Bidirectional with Facebook/Instagram Graph API by Meta",
     "version": "17.0.0.5",
     "summary": """Odoo Facebook Messenger Integration and Odoo Instagram Messaging Integration (Bidirectional) with Facebook/Instagram Graph API by Meta
         Facebook
@@ -36,7 +36,7 @@
     "company": "TechUltra Solutions Private Limited",
     "maintainer": "TechUltra Solutions",
     "license": "OPL-1",
-    "depends": ["base", "mail"],
+    "depends": ["base", "mail","sale_management","helpdesk"],
     "data": [
         "security/ir.model.access.csv",
         "wizard/messenger_compose_message_view.xml",
