@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="odoo_facebook_instagram_messenger.DiscussSalesSection">
+        <div class="o-mail-DiscussSidebarCategory d-flex align-items-center my-1">
+            <div class="d-flex align-items-baseline mx-1 btn p-0 text-start text-700 opacity-100-hover opacity-75">
+                <i class="o-mail-DiscussSidebarCategory-icon small me-1 oi oi-chevron-right"/>
+                <span class="btn-sm p-0 text-uppercase fw-bolder">Sales Orders</span>
+            </div>
+            <div t-if="saleOrders.length" class="o-mail-DiscussSidebar-badge badge rounded-pill me-3">
+                <t t-esc="saleOrders.length"/>
+            </div>
+        </div>
+    </t>
+</templates>

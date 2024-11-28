@@ -191,6 +191,18 @@ class MailChannel(models.Model):
                 'target': 'new',
                 'context': {'create': False}
             }
+    def get_sale_orders(self):
+        self.ensure_one()
+        partner = self.channel_partner_ids.filtered(lambda p: p != self.env.user.partner_id)
+        if partner:
+            orders = self.env['sale.order'].search([('partner_id', '=', partner.id)])
+            return [{
+                'id': order.id,
+                'name': order.name,
+                'amount': order.amount_total,
+                'state': order.state
+            } for order in orders]
+        return []
 
     def add_members(self, partner_ids=None, guest_ids=None, invite_to_rtc_call=False, open_chat_window=False, post_joined_message=True):
         """ Adds the given partner_ids and guest_ids as member of self channels. """
