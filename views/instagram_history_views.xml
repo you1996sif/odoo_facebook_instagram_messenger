@@ -83,7 +83,7 @@
                                 </tree>
                             </field>
                         </page>
-                        <page string="Helpdesk Tickets">
+                        <!-- <page string="Helpdesk Tickets">
                             <field name="helpdesk_ticket_ids">
                                 <tree>
                                     <field name="name"/>
@@ -93,7 +93,7 @@
                                     <field name="priority" widget="priority"/>
                                 </tree>
                             </field>
-                        </page>
+                        </page> -->
                     </notebook>
                 </sheet>
             </form>
