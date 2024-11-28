@@ -31,8 +31,8 @@ class InstagramHistoryInherit(models.Model):
     category_id = fields.Many2many(related='author_id.category_id', string='Tags', readonly=False)
     district_id = fields.Many2one(related='author_id.district_id', string='District', readonly=False, required=True)
     
-    # helpdesk_ticket_ids = fields.One2many('helpdesk.ticket', 'instagram_history_id', string='Helpdesk Tickets')
-    # ticket_count = fields.Integer(compute='_compute_ticket_count', string='Ticket Count')
+    helpdesk_ticket_ids = fields.One2many('helpdesk.ticket', 'instagram_history_id', string='Helpdesk Tickets')
+    ticket_count = fields.Integer(compute='_compute_ticket_count', string='Ticket Count')
 
     
     
