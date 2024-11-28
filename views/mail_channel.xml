@@ -20,32 +20,16 @@
             <field name="model">discuss.channel</field>
             <field name="inherit_id" ref="mail.discuss_channel_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//notebook" position="inside">
-                    <page string="Sale Orders" 
-                        name="sale_orders" 
-                       
-                        invisible="sale_order_count == 0">
-                        <div class="oe_button_box" name="button_box">
-                            <button 
-                                name="action_view_sale_orders"
-                                type="object"
-                                class="oe_stat_button"
-                                icon="fa-shopping-cart"
-                                invisible="sale_order_count == 0"
-                               >
-                                <field name="sale_order_count" string="Sale Orders" widget="statinfo"/>
-                            </button>
-                        </div>
-                        <field name="sale_order_ids" readonly="1">
-                            <tree string="Sale Orders">
-                                <field name="name"/>
-                                <field name="partner_id"/>
-                                <field name="date_order"/>
-                                <field name="amount_total" sum="Total"/>
-                                <field name="state"/>
-                            </tree>
-                        </field>
-                    </page>
+                <xpath expr="//div[hasclass('o-mail-Discuss-content')]" position="inside">
+                    <field name="sale_order_ids" readonly="1">
+                        <tree string="Sale Orders">
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="date_order"/>
+                            <field name="amount_total"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
                 </xpath>
             </field>
         </record>
