@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="odoo_facebook_instagram_messenger.PartnerSalesPanel">
+        <div class="d-flex flex-column h-100">
+            <t t-if="state.isLoading">
+                <div class="d-flex justify-content-center p-3">
+                    <i class="fa fa-spinner fa-spin"/>
+                </div>
+            </t>
+            <t t-elif="state.error">
+                <div class="alert alert-danger" role="alert">
+                    <t t-esc="state.error.message"/>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="flex-grow-1 overflow-auto">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Reference</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.orders" t-as="order" t-key="order.id">
+                                <tr>
+                                    <td><t t-esc="order.name"/></td>
+                                    <td><t t-esc="order.date_order"/></td>
+                                    <td><t t-esc="order.state"/></td>
+                                    <td><t t-esc="order.amount_total"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>
