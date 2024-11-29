@@ -61,6 +61,8 @@
             "odoo_facebook_instagram_messenger/static/src/xml/AgentsList.xml",
             "odoo_facebook_instagram_messenger/static/src/js/common/**/*",
             'odoo_facebook_instagram_messenger/static/src/components/**/*',
+            'odoo_facebook_instagram_messenger/static/src/discuss_extension.js',
+            'odoo_facebook_instagram_messenger/static/src/discuss_extension.xml',
            
         ],
     },
