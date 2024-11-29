@@ -1,18 +1,33 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import { Component } from "@odoo/owl";
+import { Component, useState } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
+import { onMounted } from "@odoo/owl";
 
 export class PartnerSalesPanel extends Component {
     static template = "odoo_facebook_instagram_messenger.PartnerSalesPanel";
     
     setup() {
         this.orm = useService("orm");
+        this.threadService = useService("mail.thread");
+        
         this.state = useState({
             orders: [],
-            isLoading: false
+            isLoading: false,
+            currentPartnerId: null
         });
+
+        onMounted(() => {
+            this.threadService.subscribe("THREAD_SELECTED", this.onThreadSelected.bind(this));
+        });
+    }
+
+    async onThreadSelected(thread) {
+        if (thread?.correspondent) {
+            this.state.currentPartnerId = thread.correspondent.id;
+            await this.loadOrders(this.state.currentPartnerId);
+        }
     }
 
     async loadOrders(partnerId) {
