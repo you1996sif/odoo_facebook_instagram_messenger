@@ -63,7 +63,7 @@
             
             'odoo_facebook_instagram_messenger/static/src/components/**/*.js',
             'odoo_facebook_instagram_messenger/static/src/components/**/*.xml',
-            'odoo_facebook_instagram_messenger/static/src/components/**/*.scss'
+         
          
            
         ],
