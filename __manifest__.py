@@ -36,12 +36,12 @@
     "company": "TechUltra Solutions Private Limited",
     "maintainer": "TechUltra Solutions",
     "license": "OPL-1",
-    "depends": ["base", "mail","sale_management","helpdesk",'sale', 'mail'],
+    "depends": ["base", "mail","sale_management","helpdesk","sale", "mail"],
     "data": [
         "security/ir.model.access.csv",
         "wizard/messenger_compose_message_view.xml",
         "wizard/instagram_compose_message_view.xml",
-        'wizard/create_sale_order_wizard_views.xml',
+        "wizard/create_sale_order_wizard_views.xml",
         "views/mail_channel.xml",
         "views/messenger_provider_base.xml",
         "views/messenger_history_views.xml",
@@ -54,17 +54,17 @@
         "views/template_components_views.xml",
         # "views/template_components_views.xml",
         # "views/template_components_views.xml",
-        # 'views/helpdesk_ticket_views.xml',
+        # "views/helpdesk_ticket_views.xml",
     ],
     "assets": {
         "web.assets_backend": [
             "odoo_facebook_instagram_messenger/static/src/xml/AgentsList.xml",
             "odoo_facebook_instagram_messenger/static/src/js/common/**/*",
             
-            '/odoo_facebook_instagram_messenger/static/src/components/discuss.js',
-            '/odoo_facebook_instagram_messenger/static/src/components/discuss.xml',
-            '/odoo_facebook_instagram_messenger/static/src/components/partner_sales_panel.js',
-            '/odoo_facebook_instagram_messenger/static/src/components/partner_sales_panel.xml',
+            "/odoo_facebook_instagram_messenger/static/src/components/discuss.js",
+            "/odoo_facebook_instagram_messenger/static/src/components/discuss.xml",
+            "/odoo_facebook_instagram_messenger/static/src/components/partner_sales_panel.js",
+            "/odoo_facebook_instagram_messenger/static/src/components/partner_sales_panel.xml",
          
          
            
