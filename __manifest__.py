@@ -52,8 +52,8 @@
         "views/messenger_template_views.xml",
         "views/template_buttons_views.xml",
         "views/template_components_views.xml",
-        "views/template_components_views.xml",
-        "views/template_components_views.xml",
+        # "views/template_components_views.xml",
+        # "views/template_components_views.xml",
         # 'views/helpdesk_ticket_views.xml',
     ],
     "assets": {
