@@ -58,12 +58,13 @@
     ],
     "assets": {
         "web.assets_backend": [
-            "odoo_facebook_instagram_messenger/static/src/xml/AgentsList.xml",
-            "odoo_facebook_instagram_messenger/static/src/js/common/**/*",
-            
+            ('include', 'web._assets_helpers'),
             '/odoo_facebook_instagram_messenger/static/src/components/discuss.js',
             '/odoo_facebook_instagram_messenger/static/src/components/discuss.xml'
          
+            "odoo_facebook_instagram_messenger/static/src/xml/AgentsList.xml",
+            "odoo_facebook_instagram_messenger/static/src/js/common/**/*",
+            
          
            
         ],
