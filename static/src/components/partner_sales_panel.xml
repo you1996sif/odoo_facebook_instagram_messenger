@@ -1,5 +1,5 @@
 <templates xml:space="preserve">
-    <t t-name="discuss_sales.PartnerSalesPanel">
+    <t t-name="odoo_facebook_instagram_messenger.PartnerSalesPanel">
         <div class="d-flex flex-column h-100">
             <div class="flex-grow-1 overflow-auto">
                 <table class="table table-sm">

@@ -4,7 +4,7 @@ import { useService } from "@web/core/utils/hooks";
 import { registry } from "@web/core/registry";
 
 export class PartnerSalesPanel extends Component {
-    static template = "discuss_sales.PartnerSalesPanel";
+    static template = "odoo_facebook_instagram_messenger.PartnerSalesPanel";
     
     setup() {
         this.orm = useService("orm");
