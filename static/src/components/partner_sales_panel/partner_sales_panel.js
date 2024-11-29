@@ -1,3 +1,5 @@
+// static/src/components/partner_sales_panel/partner_sales_panel.js
+/** @odoo-module **/
 import { Component } from "@odoo/owl";
 
 export class PartnerSalesPanel extends Component {
