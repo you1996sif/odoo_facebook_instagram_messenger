@@ -1,0 +1,28 @@
+<templates xml:space="preserve">
+    <t t-name="discuss_sales.PartnerSalesPanel">
+        <div class="d-flex flex-column h-100">
+            <div class="flex-grow-1 overflow-auto">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Reference</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="state.orders" t-as="order" t-key="order.id">
+                            <tr>
+                                <td><t t-esc="order.name"/></td>
+                                <td><t t-esc="order.date_order"/></td>
+                                <td><t t-esc="order.state"/></td>
+                                <td><t t-esc="order.amount_total"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </t>
+</templates>
