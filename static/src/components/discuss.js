@@ -1,6 +1,5 @@
 /** @odoo-module **/
 
-import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { Component, useState } from "@odoo/owl";
@@ -10,10 +9,22 @@ export class PartnerSalesPanel extends Component {
 
     setup() {
         this.orm = useService("orm");
+        this.messagingService = useService("messaging");
+        
         this.state = useState({
             orders: [],
             isLoading: false
         });
+        
+        this.messagingService.get().then(messaging => {
+            messaging.models['mail.message'].addEventListener('update', this.onMessageUpdate.bind(this));
+        });
+    }
+
+    async onMessageUpdate(message) {
+        if (message?.author?.id) {
+            await this.loadOrders(message.author.id);
+        }
     }
 
     async loadOrders(partnerId) {
@@ -29,7 +40,4 @@ export class PartnerSalesPanel extends Component {
 
 registry.category("discuss.side_panel").add("partner_sales", {
     component: PartnerSalesPanel,
-    icon: "fa-shopping-cart",
-    label: _t("Sales Orders"),
-    order: 15,
 });
